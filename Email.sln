@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E3942F4-AA2A-42FA-AD4C-81F187832503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLH.Email", "src\RLH.Email\RLH.Email.csproj", "{901CD6B4-6DC1-4232-8517-C4A202B59461}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{901CD6B4-6DC1-4232-8517-C4A202B59461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901CD6B4-6DC1-4232-8517-C4A202B59461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901CD6B4-6DC1-4232-8517-C4A202B59461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901CD6B4-6DC1-4232-8517-C4A202B59461}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{901CD6B4-6DC1-4232-8517-C4A202B59461} = {5E3942F4-AA2A-42FA-AD4C-81F187832503}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D21C0B4-3F15-4474-91D1-476A97592AAF}
+	EndGlobalSection
+EndGlobal
