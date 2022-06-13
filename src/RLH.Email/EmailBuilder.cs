@@ -22,7 +22,7 @@ namespace RLH.Email
             }
             HTMLBody = body;
         }
-        public void SetEmailSender(string emailAddress, string smtpServer, int port, string userName, string password)
+        public void SetEmailSender(string senderName,string emailAddress, string smtpServer, int port, string userName, string password)
         {
             if (string.IsNullOrEmpty(emailAddress))
             {
@@ -44,7 +44,21 @@ namespace RLH.Email
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty.", nameof(password));
             }
 
-            EmailSender = new EmailSender(emailAddress, smtpServer, port, userName, password);
+            EmailSender = new EmailSender(senderName, emailAddress, smtpServer, port, userName, password);
+        }
+        public void SetEmailSender(string senderName, string emailAddress,EmailOptions emailOptions)
+        {
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                throw new ArgumentException($"'{nameof(emailAddress)}' cannot be null or empty.", nameof(emailAddress));
+            }
+
+            if (emailOptions is null)
+            {
+                throw new ArgumentNullException(nameof(emailOptions));
+            }
+
+            EmailSender = new EmailSender(senderName, emailAddress, emailOptions.SmtpServer, emailOptions.Port, emailOptions.Username, emailOptions.Password);
         }
         public void SetEmailReceiver(string emailAddress)
         {

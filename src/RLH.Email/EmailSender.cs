@@ -8,8 +8,9 @@ namespace RLH.Email
 {
     public class EmailSender
     {
-        internal EmailSender(string emailAddress,string smtpServer,int port,string userName,string password)
+        internal EmailSender(string senderName,string emailAddress,string smtpServer,int port,string userName,string password)
         {
+            SenderName = senderName;
             EmailAddress = emailAddress;
             SmtpServer = smtpServer;
             Port = port;
@@ -17,6 +18,10 @@ namespace RLH.Email
             Password = password;
         }
 
+        /// <summary>
+        /// Name of the address as it appears in the email  e.g. 'DoNotReply'
+        /// </summary>
+        public string SenderName { get; private set; }
         /// <summary>
         /// Email address of outbound sender
         /// </summary>
