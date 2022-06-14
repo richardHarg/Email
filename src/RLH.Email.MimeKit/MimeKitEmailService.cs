@@ -1,5 +1,4 @@
 ﻿using MailKit.Net.Smtp;
-using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -7,17 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RLH.Email.MimeKit.SMTP
+namespace RLH.Email.MimeKit
 {
     public class MimeKitEmailService : IEmailService
     {
         private bool disposedValue;
         private readonly EmailOptions _options;
-
-        public MimeKitEmailService(IOptions<EmailOptions> options)
-        {
-            _options = options.Value;
-        }
 
         public MimeKitEmailService(EmailOptions options)
         {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RLH.Email;
 
-namespace RLH.Email.MimeKit.SMTP
+namespace RLH.Email.MimeKit.ASPNETCore
 {
     public static class ServiceCollectionExtensions
     {
@@ -15,7 +15,7 @@ namespace RLH.Email.MimeKit.SMTP
             }
 
             services.Configure<EmailOptions>(configuration);
-            services.AddScoped<IEmailService, MimeKitEmailService>();
+            services.AddScoped<IEmailService, OptionsMikeKitEmailService>();
             return services;
         }
     }
