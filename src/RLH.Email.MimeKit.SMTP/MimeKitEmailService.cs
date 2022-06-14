@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,30 @@ namespace RLH.Email.MimeKit.SMTP
     public class MimeKitEmailService : IEmailService
     {
         private bool disposedValue;
+        private readonly EmailOptions _options;
+
+        public MimeKitEmailService(IOptions<EmailOptions> options)
+        {
+            _options = options.Value;
+        }
+
+        public MimeKitEmailService(EmailOptions options)
+        {
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+        }
 
         public async Task<Result.Result> SendAsync(EmailBuilder emailBuilder)
         {
             if (emailBuilder is null)
             {
                 throw new ArgumentNullException(nameof(emailBuilder));
+            }
+
+            var checkResult = CheckEmailBuilderValues(emailBuilder);
+
+            if (checkResult.Errors.Any() == true)
+            {
+                return checkResult;
             }
 
             var newBuilder = new BodyBuilder();
@@ -38,11 +57,42 @@ namespace RLH.Email.MimeKit.SMTP
                 }
             }
 
-            return await SendMimeMessageAsync(BuildMimeMessage(emailBuilder.EmailSender.SenderName,emailBuilder.EmailSender.EmailAddress, emailBuilder.EmailReceiver, emailBuilder.SubjectLine, newBuilder),
-                                              emailBuilder.EmailSender.SmtpServer,
-                                              emailBuilder.EmailSender.Port,
-                                              emailBuilder.EmailSender.Username,
-                                              emailBuilder.EmailSender.Password);
+            return await SendMimeMessageAsync(BuildMimeMessage(emailBuilder.EmailSender.SenderName,emailBuilder.EmailSender.EmailAddress, emailBuilder.EmailReceiver, emailBuilder.SubjectLine, newBuilder));
+        }
+
+
+
+
+
+        private Result.Result CheckEmailBuilderValues(EmailBuilder builder)
+        {
+            var errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(builder.SubjectLine) == true)
+            {
+                errors.Add("Subject line must not be blank");
+            }
+            if (string.IsNullOrWhiteSpace(builder.HTMLBody) == true)
+            {
+                errors.Add("HTML Body must not be blank");
+            }
+            if (string.IsNullOrWhiteSpace(builder.EmailReceiver) == true)
+            {
+                errors.Add("Email receiver must not be blank");
+            }
+            if (builder.EmailSender == null || string.IsNullOrWhiteSpace(builder.EmailSender.SenderName) == true || string.IsNullOrWhiteSpace(builder.EmailSender.EmailAddress) == true)
+            {
+                errors.Add("Email sender must exist and name/email must not be blank");
+            }
+
+            if (errors.Any())
+            {
+                return Result.Result.Error(errors);
+            }
+            else
+            {
+                return Result.Result.Success();
+            }
         }
 
 
@@ -51,16 +101,14 @@ namespace RLH.Email.MimeKit.SMTP
 
 
 
-
-
-        private async Task<Result.Result> SendMimeMessageAsync(MimeMessage message, string smtpServer, int port, string username, string password)
+        private async Task<Result.Result> SendMimeMessageAsync(MimeMessage message)
         {
             try
             {
                 using (SmtpClient smtpClient = new SmtpClient())
                 {
-                    await smtpClient.ConnectAsync(smtpServer, port, true);
-                    await smtpClient.AuthenticateAsync(username, password);
+                    await smtpClient.ConnectAsync(_options.SmtpServer, _options.Port, true);
+                    await smtpClient.AuthenticateAsync(_options.Username, _options.Password);
                     await smtpClient.SendAsync(message);
                     await smtpClient.DisconnectAsync(true);
                 }
