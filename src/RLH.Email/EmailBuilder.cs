@@ -12,7 +12,7 @@ namespace RLH.Email
         public EmailSender EmailSender { get; private set; }
         public string EmailReceiver { get; private set; }
         public string SubjectLine { get; private set; }
-        public ICollection<EmailAttachment> EmailAttachments { get; private set; }
+        public ICollection<EmailAttachment> EmailAttachments { get; private set; } = new List<EmailAttachment>();
 
         public void SetHTMLBody(string body)
         {
