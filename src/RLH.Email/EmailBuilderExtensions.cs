@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RLH.Email
@@ -57,13 +58,24 @@ namespace RLH.Email
 
             try
             {
-                var finalPopulated = string.Format(templateFile, templateValues);
-                return ResultOf<string>.Success(finalPopulated);
+                return ResultOf<string>.Success(FillTemplateValues(templateFile, templateValues));
             }
             catch (Exception populateException)
             {
                 return ResultOf<string>.Error(populateException.Message);
             }
+        }
+
+        private static string FillTemplateValues(string body,ICollection<string> templateValues)
+        {
+            for (int i = 0; i < templateValues.Count; i++)
+            {
+                var match = "{" + i + "}";
+
+                body = body.Replace(match, templateValues.ElementAt(i));
+            }
+
+            return body;
         }
 
     }

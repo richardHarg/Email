@@ -1,0 +1,52 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/css; charset=utf-8;" data-inline="true" />
+    <title>Setup Two Factor Authentication</title>
+</head>
+<body>
+    <h1>{0}</h1>
+    <p>
+        Hello {2},
+        <br />
+	<br />
+        Thank you for requesting two factor authentication for your {0} account, getting setup is simple!
+        <br />
+        <br />
+        If you havn't already you will need to download either the Google or Microsoft authenticators. These are avalable below.
+        <br />
+        <hr />
+        <a href="https://play.google.com/store/apps/details?id=com.azure.authenticator&hl=en&gl=US">Microsoft Authenticator - Android</a>
+        <br />
+        <a href="https://apps.apple.com/gb/app/microsoft-authenticator/id983156458">Microsoft Authenticator - IOS</a>
+        <br />
+        <a href="https://www.microsoft.com/en-gb/p/microsoft-authenticator/9nblgggzmcj6?activetab=pivot:overviewtab">Microsoft Authenticator - Windows Mobile</a>
+        <br />
+        <hr />
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US">Google Authenticator - Android</a>
+        <br />
+        <a href="https://apps.apple.com/app/google-authenticator/id388497605">Google Authenticator - IOS</a>
+        <hr />
+        <br />
+        Once you have setup your prefered authenticator scan the below QR code or, if unavalable enter the manual setup code below.
+        <br />
+        <div>
+            <img src="cid:SetupQRCode" width="300" height="300" alt="SetupQRCode" />
+        </div>
+        <br />
+        Manual Code: {3}
+        <br />
+        <br />
+        Once setup click <a href="{4}">here</a> and enter the current one-time password code from the app. This will activate the Two Factor authentication for your account.
+        <br />
+        <b>Please note: Any API tokens will be invalidated.</b>
+        <br />
+        <br />
+        Regards<br />
+        {0} Team
+	<br>
+	<br>
+        <img src="{1}" width="100" height="50">
+</body>
+
+</html>
