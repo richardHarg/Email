@@ -1,4 +1,4 @@
-﻿using RLH.Result;
+﻿using RLH.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace RLH.Email
 {
     public static class EmailBuilderExtensions
     {
-        public static Result.Result SetHTMLBodyFromTemplate(this EmailBuilder emailBuilder, string pathToTemplateFile,ICollection<string> templateValues)
+        public static Result SetHTMLBodyFromTemplate(this EmailBuilder emailBuilder, string pathToTemplateFile,ICollection<string> templateValues)
         {
             if (emailBuilder is null)
             {
@@ -32,11 +32,11 @@ namespace RLH.Email
             if (result.Status == ResultStatus.Success)
             {
                 emailBuilder.SetHTMLBody(result.Value);
-                return Result.Result.Success();
+                return Result.Success();
             }
             else
             {
-                return Result.Result.Error(result.Errors);
+                return Result.Error(result.Errors);
             }
         }
 

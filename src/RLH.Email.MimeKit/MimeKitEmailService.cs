@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RLH.Results;
 
 namespace RLH.Email.MimeKit
 {
@@ -18,7 +19,7 @@ namespace RLH.Email.MimeKit
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
-        public async Task<Result.Result> SendAsync(EmailBuilder emailBuilder)
+        public async Task<Result> SendAsync(EmailBuilder emailBuilder)
         {
             if (emailBuilder is null)
             {
@@ -47,7 +48,7 @@ namespace RLH.Email.MimeKit
                 }
                 catch (Exception e)
                 {
-                    return Result.Result.Error(e.Message);
+                    return Result.Error(e.Message);
                 }
             }
 
@@ -58,7 +59,7 @@ namespace RLH.Email.MimeKit
 
 
 
-        private Result.Result CheckEmailBuilderValues(EmailBuilder builder)
+        private Result CheckEmailBuilderValues(EmailBuilder builder)
         {
             var errors = new List<string>();
 
@@ -81,11 +82,11 @@ namespace RLH.Email.MimeKit
 
             if (errors.Any())
             {
-                return Result.Result.Error(errors);
+                return Result.Error(errors);
             }
             else
             {
-                return Result.Result.Success();
+                return Result.Success();
             }
         }
 
@@ -95,7 +96,7 @@ namespace RLH.Email.MimeKit
 
 
 
-        private async Task<Result.Result> SendMimeMessageAsync(MimeMessage message)
+        private async Task<Result> SendMimeMessageAsync(MimeMessage message)
         {
             try
             {
@@ -106,11 +107,11 @@ namespace RLH.Email.MimeKit
                     await smtpClient.SendAsync(message);
                     await smtpClient.DisconnectAsync(true);
                 }
-                return Result.Result.Success();
+                return Result.Success();
             }
             catch (Exception e)
             {
-                return Result.Result.Error(e.Message);
+                return Result.Error(e.Message);
             }
         }
         private MimeMessage BuildMimeMessage(string senderName, string senderEmail, string receiverEmail, string subject, BodyBuilder bodyBuilder)
