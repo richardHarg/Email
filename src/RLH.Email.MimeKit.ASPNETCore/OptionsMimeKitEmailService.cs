@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RLH.Email.MimeKit.ASPNETCore
 {
-    public class OptionsMikeKitEmailService : MimeKitEmailService
+    public class OptionsMimeKitEmailService : MimeKitEmailService
     {
-        public OptionsMikeKitEmailService(IOptions<EmailOptions> options) : base(options.Value)
+        public OptionsMimeKitEmailService(IOptions<EmailOptions> options) : base(options.Value)
         {
         }
     }

@@ -14,8 +14,8 @@ namespace RLH.Email.MimeKit.ASPNETCore
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            services.Configure<EmailOptions>(configuration);
-            services.AddScoped<IEmailService, OptionsMikeKitEmailService>();
+            services.Configure<EmailOptions>(configuration.GetSection("EmailOptions"));
+            services.AddScoped<IEmailService, OptionsMimeKitEmailService>();
             return services;
         }
     }
