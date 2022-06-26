@@ -56,10 +56,7 @@ namespace RLH.Email.MimeKit
         }
 
 
-
-
-
-        private Result CheckEmailBuilderValues(EmailBuilder builder)
+        public Result CheckEmailBuilderValues(EmailBuilder builder)
         {
             var errors = new List<string>();
 

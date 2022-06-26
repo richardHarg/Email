@@ -10,5 +10,7 @@ namespace RLH.Email
     public interface IEmailService : IDisposable
     {
         public Task<Result> SendAsync(EmailBuilder emailBuilder);
+
+        public Result CheckEmailBuilderValues(EmailBuilder builder);
     }
 }
